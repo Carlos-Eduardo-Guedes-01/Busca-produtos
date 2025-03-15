@@ -6,7 +6,7 @@ app_name = 'accounts'
 
 urlpatterns = [
     # ...
-    path('bla/', inicio, name='index'),
+    path('suporte/', inicio, name='index'),
     path('cadastra-adm/', cadastro, name='cadastro_template'),
     path('', home, name='home'),
     path('contato/', contato, name='contato'),

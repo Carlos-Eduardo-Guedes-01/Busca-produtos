@@ -14,7 +14,7 @@
     <input type='text' name="email" id="nome" class="campo" placeholder="E-mail"required><br>
     <input type="password"name="senha" id="nome" class="campo" placeholder="Senha"required><br>
     <input type="password" name="senha_repeat" id="nome" class="campo" placeholder="Repetir Senha" required><br>
-    <center><button type="submit" class="botao">Cadastrar</button></center>
+    <center><a class="botao-voltar" href="{% url 'accounts:index' %}">Voltar</a><button type="submit" class="botao">Cadastrar</button></center>
   </form>
 </div>
 {% endblock %}

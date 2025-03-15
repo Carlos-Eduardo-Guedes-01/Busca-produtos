@@ -13,7 +13,7 @@ class preco(models.Model):
 class produtos(models.Model):
     nome_produto=models.CharField(max_length=100)
     secao=models.ForeignKey(secao,on_delete=models.CASCADE,verbose_name='Seção')
-    imagem=models.ImageField(upload_to='media')
+    imagem=models.ImageField(upload_to='produtos/')
     empresa=models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True)
     status=models.CharField(max_length=2,default='1', null=True)
     preco=models.ForeignKey(preco, on_delete=models.CASCADE, null=True)

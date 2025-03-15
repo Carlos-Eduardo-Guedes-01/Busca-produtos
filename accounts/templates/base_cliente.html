@@ -63,9 +63,9 @@
             <div class="title2">
                 <div class="busca ">
                 <center>
-                    <form action="{% url 'produto:busca-produto' %}" method="POST" class="formulario">
+                    <form action="{% url 'produto:busca-produto' %}" method="GET" class="formulario">
                         {% csrf_token %}
-                        <input class="campo-search" type="text" name="search" id="busca" placeholder="Faça uma busca pelos produtos desejados">
+                        <input class="campo-search" type="text" name="search" id="busca" placeholder="Faça uma busca pelos produtos desejados" value="{{busca}}">
                         <button type="submit" class="botao2">
                             <i class="fa-solid fa-magnifying-glass" style="color: #19877E;"></i>
                         </button>

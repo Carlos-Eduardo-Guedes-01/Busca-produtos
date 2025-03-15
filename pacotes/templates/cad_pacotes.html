@@ -17,10 +17,13 @@
       <label style="color: black;" class='label' for="{{ form.quant_prod.id_for_label }}">{{ form.quant_prod.label }}</label><br>
       {{form.quant_prod}}
       <br>
+      <label style="color: black;" class='label' for="{{ form.quant_carousel.id_for_label }}">{{ form.quant_carousel.label }}</label><br>
+      {{form.quant_carousel}}
+      <br>
       <label style="color: black;" class='label' for="{{ form.descricao.id_for_label }}">{{ form.descricao.label }}</label><br>
       {{form.descricao}}<br>
     
-    <center><button type="submit" class="botao">Cadastrar</button></center>
+      <center><a class="botao-voltar" href="{% url 'accounts:index' %}">Voltar</a><button type="submit" class="botao">Cadastrar</button></center>
   </form>
   </div>
 </div>

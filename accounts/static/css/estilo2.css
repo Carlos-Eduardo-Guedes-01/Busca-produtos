@@ -9,6 +9,9 @@ a{
     color: black;
     text-decoration: none;
 }
+.imagem_detalhe{
+    border-radius: 10px;
+}
 .voltar{
     justify-content: space-evenly;
     font-size: 14pt;
@@ -142,7 +145,7 @@ a{
     align-items: center;
     justify-content: center;
 }
-.formulario1 .botao{
+.botao{
     width: 130px;
     height: 30px;
     font-size: 14pt;
@@ -152,12 +155,29 @@ a{
     
     transition: 0.1s;
 }
-.formulario .botao:hover{
-    width: 145px;
-    height: 40px;
-    font-size: 16pt;
-    background-color: #aaaaaa;
-    font-weight: bold;
+.botao:hover{
+    background-color: #5b5b5b; /* Cor um pouco mais escura ao passar o mouse */
+    color: white;
+}
+.botao-voltar {
+    display: inline-block;
+    margin-right: 10px;
+    width: 130px;
+    height: 30px;
+    font-size: 14pt;
+    border-radius: 10px;
+    border: none;
+    color: #000; /* Ajuste a cor do texto conforme necessário */
+    text-decoration: none;
+    transition: 0.2s;
+    outline: 2px solid #c2c2c2; /* Cor do outline igual ao background */
+}
+
+
+
+.botao-voltar:hover {
+    background-color: #5b5b5b; /* Cor um pouco mais escura ao passar o mouse */
+    color: white;
 }
 .produtos{
     display: flex;
@@ -454,9 +474,11 @@ Carousel
     padding: 10px;
 }
 .total{
-    
+    padding-top: 5px;
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 .tit{
     display: flex;

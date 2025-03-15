@@ -6,14 +6,23 @@
   {{msg}}
 </div>
 {% endif %}
-<center>
 <div class="formulario1">
   <form action="{% url 'empresa:empresa_cad' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="botao">Adicionar</button>
+    <label style="color: black;" class='label' for="{{ form.nome_empresa.id_for_label }}">{{ form.nome_empresa.label }}</label><br>
+      {{form.nome_empresa}}<br>
+    <label style="color: black;" class='label' for="{{ form.cidade.id_for_label }}">{{ form.cidade.label }}</label><br>
+      {{form.cidade}}<br>
+    <label style="color: black;" class='label' for="{{ form.pacote.id_for_label }}">{{ form.pacote.label }}</label><br>
+      {{form.pacote}}<br>
+    <label style="color: black;" class='label' for="{{ form.rua.id_for_label }}">{{ form.rua.label }}</label><br>
+      {{form.rua}}<br>
+    <label style="color: black;" class='label' for="{{ form.bairro.id_for_label }}">{{ form.bairro.label }}</label><br>
+      {{form.bairro}}<br>
+    
+    <center><a class="botao-voltar" href="{% url 'accounts:index' %}">Voltar</a><button type="submit" class="botao">Adicionar</button></center>
   </form>
 
 </div>
-</center>
+
 {% endblock %}

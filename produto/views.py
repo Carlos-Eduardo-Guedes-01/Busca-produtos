@@ -19,49 +19,83 @@ from empresa.models import *
 from accounts.models import *
 from .models import preco,secao
 from django.contrib.auth.decorators import login_required
-import imghdr
+import magic
+from PIL import Image as PILImage
+from .models import *
+from django.db.models import Max, Min
+import unicodedata
+
+def trata_busca(busca):
+    """
+    Função para tratar a string de busca.
+    - Remove acentuação
+    - Converte para minúsculas
+    """
+    # Remover acentuação
+    busca = ''.join(c for c in unicodedata.normalize('NFD', busca)
+                    if unicodedata.category(c) != 'Mn')
+
+    # Converter para minúsculas
+    busca = busca.lower()
+
+    return busca
+
 
 @login_required(login_url='accounts:login')
 def cad_prod(request):
-    data={}
-    data['title']='Cadastro de Produtos'
-    if(request.POST):
-        data['form']=ProdutoForm(request.POST, request.FILES)
-        form=data['form']
-        if(data['form'].is_valid()):
-            nome=Empresa.objects.get(id=request.POST.get('empresa'))
-            quant=nome.quant_prod
-            print(nome.pacote)
-            r1=Pacote.objects.get(nome=nome.pacote)
-            pac=r1.quant_prod
-            if(quant<pac):
-                quant+=1
-                teste=Empresa.objects.filter(nome_empresa=nome).update(quant_prod=quant)
-                produto = data['form'].save(commit=False)
-                img = request.FILES
-                dados_img = imghdr.what(img['imagem'])
-                if dados_img == 'png' or dados_img == 'jpeg' or dados_img =='jpg' or dados_img =='webp':
-                    
-                    data['form'].save()
-                    data['msg'] = 'Produto Cadastrado com Sucesso!'
-                    data['class'] = 'alert-success'''
-                else:
-                    data['msg'] = 'Formato de imagem não suportado.'
-                    data['class'] = 'alert-danger'''
-            elif(quant>=pac):
+    data = {}
+    data['title'] = 'Cadastro de Produtos'
+
+    if request.POST:
+        data['form'] = ProdutoForm(request.POST, request.FILES)
+        form = data['form']
+        if form.is_valid():
+            nome = Empresa.objects.get(id=request.POST.get('empresa'))
+            quant = nome.quant_prod
+            r1 = Pacote.objects.get(nome=nome.pacote)
+            pac = r1.quant_prod
+            if quant < pac:
+                quant += 1
+                Empresa.objects.filter(nome_empresa=nome).update(quant_prod=quant)
+                produto = form.save(commit=False)
+                img = request.FILES.get('imagem')
+
+                # Verificação de tipo de imagem usando o Pillow
+                try:
+                    if img:
+                        # Verifica se a imagem é do tipo correto
+                        img = PILImage.open(img)
+                        img.verify()  # Verifica se o arquivo é uma imagem válida
+                        if img.format not in ['JPEG', 'PNG']:
+                            data['msg'] = 'Formato de imagem não suportado.'
+                            data['class'] = 'alert-danger'
+                        else:
+                            form.save()
+                            data['msg'] = 'Produto Cadastrado com Sucesso!'
+                            data['class'] = 'alert-success'
+                    else:
+                        data['msg'] = 'Nenhuma imagem foi enviada.'
+                        data['class'] = 'alert-danger'
+
+                except Exception as e:
+                    data['msg'] = f'Erro ao verificar imagem: {str(e)}'
+                    data['class'] = 'alert-danger'
+            else:
                 data['msg'] = 'Limite do pacote atingido.'
-                data['class'] = 'alert-danger'''
+                data['class'] = 'alert-danger'
         else:
             data['msg'] = 'Formulário inválido.'
-            data['class'] = 'alert-danger'''
+            data['class'] = 'alert-danger'
+
     else:
         data['form'] = ProdutoForm()
-        #data['form']=ProdutoForm()
-        data['formpreco']=PrecoForm()
-    data['link_form']="{% url 'accounts:index'%}"
-    data['nome']='Voltar'
-    data['titulo']='Cadastro Produtos'
-    return render(request,'../../produto/templates/cadastro_prod.html',data)
+        data['formpreco'] = PrecoForm()
+
+    data['link_form'] = "{% url 'accounts:index' %}"
+    data['nome'] = 'Voltar'
+    data['titulo'] = 'Cadastro Produtos'
+
+    return render(request, '../../produto/templates/cadastro_prod.html', data)
 @login_required(login_url='accounts:login')
 def cad_preco(request):
     data={}
@@ -89,25 +123,36 @@ def cad_preco(request):
     data['titulo']='Cadastro Produtos'
     return render(request,'../../produto/templates/cadastro_prod.html',data)
 
+
 def busca_prod(request):
     data = {}
     data['title'] = 'Cadastro de empresas'
     data['link_form'] = '123'
     data['title'] = 'Pesquisa'
     data['titulo'] = 'Cadastro Empresa'
-    busca = request.POST.get('search')
-    
-    data['produtos'] = produtos.objects.raw(
+
+    busca_bruta = request.GET.get('search', '')
+    busca_tratada = trata_busca(busca_bruta)
+    # Filtra os produtos com base na busca
+    '''data['produtos'] = produtos.objects.raw(
         "SELECT produto.id, produto.nome_produto, secao.nome_secao, empresa.nome_empresa, "
         "MAX(preco.valor) AS maior_preco, MIN(preco.valor) AS menor_preco, produto.imagem "
         "FROM produto_produtos AS produto "
         "INNER JOIN produto_secao AS secao ON produto.secao_id = secao.id "
         "INNER JOIN empresa_empresa AS empresa ON produto.empresa_id = empresa.id "
         "INNER JOIN produto_preco AS preco ON produto.preco_id = preco.id "
-        "WHERE produto.nome_produto LIKE %s AND produto.status = 1 "
-        "GROUP BY produto.nome_produto",
-        ['%' + busca + '%']
-    )
+        "WHERE produto.status = 1 "
+        "GROUP BY produto.nome_produto"
+    )'''
+    data['produtos'] = produtos.objects.filter(nome_produto__icontains=busca_tratada).raw("SELECT produto.id, produto.nome_produto, secao.nome_secao, empresa.nome_empresa, "
+        "MAX(preco.valor) AS maior_preco, MIN(preco.valor) AS menor_preco, produto.imagem "
+        "FROM produto_produtos AS produto "
+        "INNER JOIN produto_secao AS secao ON produto.secao_id = secao.id "
+        "INNER JOIN empresa_empresa AS empresa ON produto.empresa_id = empresa.id "
+        "INNER JOIN produto_preco AS preco ON produto.preco_id = preco.id "
+        "WHERE produto.status = 1 "
+        "GROUP BY produto.nome_produto")
+    data['busca'] = busca_bruta
     return render(request, '../../produto/templates/lista_produtos.html', data)
 def secoes(request, v):
     data = {}
@@ -128,6 +173,7 @@ def secoes(request, v):
         "GROUP BY produto.nome_produto",
         ['%' + busca.nome_secao + '%']
     )
+    
     return render(request, '../../produto/templates/lista_produtos.html', data)
 
 def listagem(request):

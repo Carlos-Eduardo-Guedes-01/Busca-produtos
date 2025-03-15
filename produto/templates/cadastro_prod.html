@@ -10,20 +10,25 @@
     <form action="{% url 'produto:cad_prod' %}" method="POST" enctype="multipart/form-data" class="form">
     
     {% csrf_token %}  
+      <label style="color: black;" class='label' for="{{ form.nome_produto.id_for_label }}">{{ form.nome_produto.label }}</label><br>
       {{form.nome_produto}}<br>
+      <label style="color: black;" class='label' for="{{ form.empresa.id_for_label }}">{{ form.empresa.label }}</label><br>
       {{form.empresa}}<br>
       <!-- chamando modal -->
+      <label style="color: black;" class='label' for="{{ form.preco.id_for_label }}">{{ form.preco.label }}</label>
       <div class="preco">{{form.preco}}
         <button type="button" class="btn btn-add" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap"><img src="{% static 'img/add.png' %}" alt="add" width="20" height="20" class="align-baseline"></button>
          <br>
       </div><br>
       <label style="color: black;" class='label' for="{{ form.secao.id_for_label }}">{{ form.secao.label }}</label><br>
       {{form.secao}}<br>
+      <label style="color: black;" class='label' for="{{ form.imagem.id_for_label }}">{{ form.imagem.label }}</label><br>
       {{form.imagem}}<br>
+      <label style="color: black;" class='label' for="{{ form.status.id_for_label }}">{{ form.status.label }}</label><br>
       {{form.status}}
       <label style="color: black;" class='label' for="{{ form.carousel.id_for_label }}">{{ form.carousel.label }}</label><br>
       {{form.carousel}}
-    <center><button type="submit" class="botao">Cadastrar</button></center>
+      <center><a class="botao-voltar" href="{% url 'accounts:index' %}">Voltar</a><button type="submit" class="botao">Cadastrar</button></center>
   </form>
   <center>
    <!--JANELA MODAL-->

@@ -128,3 +128,7 @@ STATIC_DIR=os.path.join(BASE_DIR, 'static/select2'),
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 FORM_RENDERER = 'django.forms.renderers.DjangoTemplates'
+
+# Configurações para arquivos de mídia
+MEDIA_URL = '/media/'  # URL para acessar as imagens no navegador
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Diretório onde as imagens serão armazenadas

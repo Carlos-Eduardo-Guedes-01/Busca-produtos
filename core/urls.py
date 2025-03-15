@@ -25,4 +25,4 @@ urlpatterns = [
     path('', include(('accounts.urls', 'accounts'), namespace='accounts')),
     path('empresa/', include(('empresa.urls', 'empresa'), namespace='empresa')),
     path('pacotes/', include(('pacotes.urls', 'pacotes'), namespace='pacotes')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

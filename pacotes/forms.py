@@ -10,6 +10,7 @@ class PacoteForm(forms.ModelForm):
                 'class':'campo','placeholder':'Nome do Pacote',}),
             'custo':forms.NumberInput(attrs={ 'class': 'campo'}),
             'quant_prod':forms.NumberInput(attrs={'class':'campo','placeholder':'Quantidade de Produtos'}),
+            'quant_carousel':forms.NumberInput(attrs={'class':'campo','placeholder':'Quantidade no Carousel'}),
             'descricao':forms.Textarea(attrs={
                 'class':'campo','placeholder':'Descrição do Pacote'}),
         }

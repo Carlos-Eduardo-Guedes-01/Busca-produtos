@@ -3,22 +3,32 @@ from django.shortcuts import render
 from .models import *
 from django.contrib.auth.decorators import login_required
 from .forms import PacoteForm
+from django.core.exceptions import ValidationError
 # Create your views here.
 @login_required(login_url='accounts:login')
 def cad_pac(request):
     data={}
     data['title']='Cadastro de Produtos'
     if(request.POST):
-        data['form']=PacoteForm(request.POST)
-        form=data['form']
-        if(data['form'].is_valid()):
-            produto = data['form'].save()
-            if(produto):
-                data['class']='alert-success'
-                data['msg']='Pacote Cadastrado com Sucesso!'
-        else:
-            data['msg'] = 'Formulário inválido.'
-            data['class'] = 'alert-danger'''
+        form = PacoteForm(request.POST)
+        data['form'] = form  # Mantém o formulário no contexto da página
+
+        try:
+            if form.is_valid():
+                produto = form.save()
+                data['class'] = 'alert-success'
+                data['msg'] = 'Pacote Cadastrado com Sucesso!'
+            else:
+                raise ValueError("Erro no formulário")
+        except ValueError as e:
+            # Captura erros do formulário
+            erros = "; ".join([f"{campo}: {', '.join(map(str, erro_lista))}" for campo, erro_lista in form.errors.items()])
+            data['msg'] = f'Erro ao cadastrar o pacote: {erros}'
+            data['class'] = 'alert-danger'
+        except Exception as e:
+            # Captura erros inesperados
+            data['msg'] = f'Erro inesperado: {str(e)}'
+            data['class'] = 'alert-danger'
     else:
         data['form'] = PacoteForm()
         #data['form']=PacoteForm()

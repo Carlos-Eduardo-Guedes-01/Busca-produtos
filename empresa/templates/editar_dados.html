@@ -6,7 +6,6 @@
     {{msg}}
 </div>
 {% endif %}
-<center>
 <div class="formulario1" style="padding-top: 50px;">
  
     <form action="{% url 'empresa:alterando' %}" method="POST" enctype="multipart/form-data" class="form form-group">
@@ -42,9 +41,9 @@
       <input id="bairro" type="text" class="campo" name='bairro' value="{{empresa.bairro}}"><br>
       <input type="number" name="id" value="{{empresa.id}}" style="display: none;">
 
-      <button type="submit" class="botao">Adicionar</button>
+      <center><a class="botao-voltar" href="{% url 'accounts:index' %}">Voltar</a><button type="submit" class="botao">Adicionar</button></center>
     </form>
 
 </div>
-</center>
+
 {% endblock %}

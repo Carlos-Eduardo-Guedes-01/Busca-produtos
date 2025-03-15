@@ -59,7 +59,6 @@ def alterar_dados(request, id):
     data['empresa']=Empresa.objects.get(id=id)
     #Busca por todos os tipos de empresas para a tag select
     data['pacotes']=Pacote.objects.all()
-    data['tipos']=Tipos.objects.all()
     #Buscando as cidades para a tag select
     data['cidades']=Cidade.objects.all()
     data['title']='Editando Empresas'
@@ -70,7 +69,6 @@ def alterando(request):
     data={}
     # Recebendo dados do formulário
     nome=request.POST.get('nome_empresa')
-    tipo=request.POST.get('tipo')
     cidade=request.POST.get('cidade')
     rua=request.POST.get('rua')
     bairro=request.POST.get('bairro')
@@ -79,7 +77,7 @@ def alterando(request):
     # Buscando os dados da empresa para filtragem
     data['empresa']=Empresa.objects.get(id=id)
     # Efetivando alterações
-    emp=Empresa.objects.filter(id=id).update(nome_empresa=nome, tipo=tipo,cidade=cidade,rua=rua,bairro=bairro)
+    emp=Empresa.objects.filter(id=id).update(nome_empresa=nome,cidade=cidade,rua=rua,bairro=bairro)
     # Verificando se alteração funcionou ou não
     if(emp):
         data['msg'] = 'Empresa editada com sucesso!'
@@ -87,7 +85,6 @@ def alterando(request):
     else:
         data['class'] = 'alert-danger'
         data['msg']='Falha ao alterar dados!'
-    data['tipos']=Tipos.objects.all()
     data['cidades']=Cidade.objects.all()
     data['empresa']=Empresa.objects.get(id=id)
     return render(request,'../../empresa/templates/editar_dados.html',data)
