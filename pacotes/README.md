@@ -68,4 +68,4 @@ python manage.py runserver
 ### Cliente:
 
 1. **Pagina 1: Pagina inicial com Carousel dos produtos:**
-<img src = <img src="https://github.com/Carlos-Eduardo-Guedes-01/Animal-Lottery/blob/main/imagens-do-projeto/01.png?raw=true" alt="Clique aqui" width="1000">
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/01.png?raw=true" alt="Clique aqui" width="1000">
