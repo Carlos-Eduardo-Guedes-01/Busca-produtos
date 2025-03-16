@@ -12,7 +12,7 @@
             <div class="empresa">
                 <div><b>{{empresa.empresa}}</b></div>
                 <div>Endereço: {{empresa.empresa.rua}}, {{empresa.empresa.bairro}}, {{empresa.empresa.cidade}}</div>
-                <div style="color: red;"><b>Valor:  R$ {{empresa.preco}}</b></div>
+                <div style="color: red;"><b>Valor:  R$ {{ empresa.preco|floatformat:2|default:"0,00" }}</b></div>
             </div>
             {% endfor %}
         </div>

@@ -133,8 +133,9 @@ def busca_prod(request):
 
     busca_bruta = request.GET.get('search', '')
     busca_tratada = trata_busca(busca_bruta)
+
     # Filtra os produtos com base na busca
-    '''data['produtos'] = produtos.objects.raw(
+    data['produtos'] = produtos.objects.filter(nome_produto__icontains=busca_tratada).raw(
         "SELECT produto.id, produto.nome_produto, secao.nome_secao, empresa.nome_empresa, "
         "MAX(preco.valor) AS maior_preco, MIN(preco.valor) AS menor_preco, produto.imagem "
         "FROM produto_produtos AS produto "
@@ -143,16 +144,15 @@ def busca_prod(request):
         "INNER JOIN produto_preco AS preco ON produto.preco_id = preco.id "
         "WHERE produto.status = 1 "
         "GROUP BY produto.nome_produto"
-    )'''
-    data['produtos'] = produtos.objects.filter(nome_produto__icontains=busca_tratada).raw("SELECT produto.id, produto.nome_produto, secao.nome_secao, empresa.nome_empresa, "
-        "MAX(preco.valor) AS maior_preco, MIN(preco.valor) AS menor_preco, produto.imagem "
-        "FROM produto_produtos AS produto "
-        "INNER JOIN produto_secao AS secao ON produto.secao_id = secao.id "
-        "INNER JOIN empresa_empresa AS empresa ON produto.empresa_id = empresa.id "
-        "INNER JOIN produto_preco AS preco ON produto.preco_id = preco.id "
-        "WHERE produto.status = 1 "
-        "GROUP BY produto.nome_produto")
+    )
+
+    # Formatar os preços em reais antes de enviar para o template
+    for produto in data['produtos']:
+        produto.maior_preco = f'R$ {produto.maior_preco:.2f}'.replace('.', ',')
+        produto.menor_preco = f'R$ {produto.menor_preco:.2f}'.replace('.', ',')
+
     data['busca'] = busca_bruta
+
     return render(request, '../../produto/templates/lista_produtos.html', data)
 def secoes(request, v):
     data = {}
@@ -184,6 +184,7 @@ def listagem(request):
     data['t1']='s'
     data['produtos']=produtos.objects.filter(status=1).order_by('nome_produto')
     return render(request, '../../produto/templates/lista_adm.html',data)
+
 @login_required(login_url='accounts:login')
 def upd_status(request):
     data={}

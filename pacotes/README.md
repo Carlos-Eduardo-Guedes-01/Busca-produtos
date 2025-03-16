@@ -65,7 +65,54 @@ python manage.py runserver
 ```
 #
 # IMAGENS DO PROJETO
-### Cliente:
+<h1>Cliente:</h1>
+
 
 1. **Pagina 1: Pagina inicial com Carousel dos produtos:**
 <img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/01.png?raw=true" alt="Clique aqui" width="1000">
+
+2. **Pagina 2: Página de contato:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/02.png?raw=true">
+
+3. **Pagina 3: Página de sobre:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/03.png?raw=true">
+
+4. **Pagina 4: Página de filtro por seção:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/04.png?raw=true">
+
+5. **Pagina 5: Página de busca por nome do produto:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/05.png?raw=true">
+
+#
+<h1>Administrador:</h1>
+A página de administrador tem um link específico e um login nesse link por razões de segurança.
+
+1. **Pagina 1: Página de login:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/01.png?raw=true">
+
+2. **Pagina 2: Página inicial do Administrador onde tem todas as funções de cadastro e caminho par alterações:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/02.png?raw=true">
+
+3. **Pagina 3: Página que mostra as empresas e funções de editar e remove-las:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/03.png?raw=true">
+
+4. **Pagina 4: Página que mostra os pacotes de cadastro de produtos e opções de editá-los, este pacote limita a quantidade de produtos e a quantidade no carousel da página inicial:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/04.png?raw=true">
+
+5. **Pagina 5: Página de listagem dos produtos, assim como os estabelecimentos, tem as opções de editar e remover:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/05.png?raw=true">
+
+6. **Pagina 6: Página de cadastro de outros administradores:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/06.png?raw=true">
+
+7. **Pagina 7: Página de cadastro de empresas:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/07.png?raw=true">
+
+8. **Pagina 8: Cadastro de Produtoes:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/08.png?raw=true">
+
+9. **Pagina 9: Página de cadastro de pacotes:**
+<img src="https://github.com/Carlos-Eduardo-Guedes-01/Busca-Produtos/blob/carlos/imagens-do-projeto/adm/09.png?raw=true">
+
+
+

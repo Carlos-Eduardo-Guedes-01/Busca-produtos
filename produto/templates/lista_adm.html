@@ -33,7 +33,7 @@
             <div class="dados">
                 <div class="h3">{{produto.nome_produto}}</div>
                 <div class="sub-text">Seção: {{produto.secao}}, {{produto.empresa}}</div>
-                <div class="sub-text" style="color: red;">Preço: R$ {{produto.preco}},00</div>
+                <div class="sub-text" style="color: red;">Preço: R$ {{ produto.preco|floatformat:2|default:"0,00" }}</div>
             </div>
             <!--Icone normal-->
             <div class="icone">

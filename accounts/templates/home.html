@@ -19,7 +19,7 @@
             <div class="titulo">{{prod.nome_produto}}</div>
             <div>{{prod.empresa}}</div>
             <div>{{prod.empresa.rua}}, {{prod.empresa.bairro}}, {{prod.empresa.cidade}}.</div>
-            <p class="text-danger font-weight-bold">Preço: R$ {{prod.preco}},00</p>
+            <p class="text-danger font-weight-bold">Preço: R$ {{ prod.preco|floatformat:2|default:"0,00" }}</p>
           </div>
         </div>
       </div>
